@@ -1,0 +1,28 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: echo Terraform Azure
+  displayName: 'Run a one-line script'
+
+- task: DownloadSecureFile@1
+  name: publickey
+  inputs:
+    secureFile: 'azure_rsa1.pub'
+- task: TerraformCLI@0
+  inputs:
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+    backendType: 'azurerm'
+    backendServiceArm: 'Azure-RM-service-connection'
+    ensureBackend: true
+    backendAzureRmResourceGroupName: 'neilcloud-tstate-rg'
+    backendAzureRmResourceGroupLocation: 'westeurope'
+    backendAzureRmStorageAccountName: 'neilcloudtfstate'
+    backendAzureRmContainerName: 'tfstate'
+    backendAzureRmKey: 'terraform-dev.tfstate'
+    allowTelemetryCollection: true
+
