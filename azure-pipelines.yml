@@ -26,9 +26,16 @@ steps:
     backendAzureRmKey: 'terraform-dev.tfstate'
     allowTelemetryCollection: true
 
+# - task: TerraformCLI@0
+#   inputs:
+#     command: 'apply'
+#     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+#     environmentServiceName: 'Azure-RM-service-connection'
+#     allowTelemetryCollection: true
+
 - task: TerraformCLI@0
   inputs:
-    command: 'apply'
+    command: 'destroy'
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
     environmentServiceName: 'Azure-RM-service-connection'
     allowTelemetryCollection: true
