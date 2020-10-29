@@ -5,7 +5,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Terraform Azure
+- script: echo "client_id=$(client_id) client_secret=$(client_secret) ssh_public_key=$(publickey.secureFilePath)"
   displayName: 'Run a one-line script'
 
 - task: DownloadSecureFile@1
